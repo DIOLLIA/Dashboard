@@ -65,7 +65,10 @@
         <h:form>
             <h:commandButton id="update" action="#{scheduleBean.checkQueue}" value="upd" styleClass="register"
                              onclick="initTimer()"/>
+        </h:form>
 
+        <h:form>
+            <p:poll interval="3" listener="#{scheduleBean.checkQueue}" />
         </h:form>
 
         <h2>Members</h2>
