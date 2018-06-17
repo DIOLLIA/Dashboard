@@ -29,6 +29,7 @@ public class ScheduleBean implements Serializable {
 
     public void checkQueue() throws Exception {
 
+
         try {
             receiver.createConnection();
 //            requestSchedule();
