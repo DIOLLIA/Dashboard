@@ -27,12 +27,6 @@ import javax.inject.Named;
 
 import ru.timetable.model.Member;
 
-/**
- * Retrieves the Member List
- *
- * @author Madhumita Sadhukhan
- */
-
 @RequestScoped
 public class MemberListProducer {
     @Inject

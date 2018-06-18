@@ -1,6 +1,5 @@
-<!--
 <?xml version="1.0" encoding="UTF-8"?>
-&lt;!&ndash;
+<!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
@@ -15,7 +14,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-&ndash;&gt;
+-->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -30,24 +29,21 @@
             <p>Demonstrates quickstart application for Hibernate using JBoss EAP.</p>
             <h:panelGrid columns="3" columnClasses="titleCell">
                 <h:outputLabel for="id" value="Member Id (Enter unique number):"/>
-                <h:inputText id="id" value="#{newMember.id}"/>
+                <h:inputText id="id" value="#{newSchedule.trainNumber}"/>
                 <h:message for="id" errorClass="invalid"/>
 
                 <h:outputLabel for="name" value="Name:"/>
-                <h:inputText id="name" value="#{newMember.name}"/>
+                <h:inputText id="name" value="#{newSchedule.departureTime}"/>
                 <h:message for="name" errorClass="invalid"/>
 
                 <h:outputLabel for="email" value="Email:"/>
-                <h:inputText id="email" value="#{newMember.email}"/>
+                <h:inputText id="email" value="#{newSchedule.station}"/>
                 <h:message for="email" errorClass="invalid"/>
 
                 <h:outputLabel for="phoneNumber" value="Phone #:"/>
-                <h:inputText id="phoneNumber" value="#{newMember.phoneNumber}"/>
+                <h:inputText id="phoneNumber" value="#{newSchedule.arrivalTime}"/>
                 <h:message for="phoneNumber" errorClass="invalid"/>
 
-                <h:outputLabel for="address" value="Address:"/>
-                <h:inputText id="address" value="#{newMember.address}"/>
-                <h:message for="address" errorClass="invalid"/>
             </h:panelGrid>
 
             <p>
@@ -91,4 +87,3 @@
         </h:dataTable>
     </ui:define>
 </ui:composition>
--->

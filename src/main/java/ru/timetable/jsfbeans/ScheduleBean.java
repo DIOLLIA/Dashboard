@@ -21,18 +21,13 @@ import java.util.Date;
 @Setter
 public class ScheduleBean implements Serializable {
 
-    private String stationName;
-    private Date date;
-
     @EJB
     private NotifyConsumer receiver;
 
     public void checkQueue() throws Exception {
 
-
         try {
             receiver.createConnection();
-//            requestSchedule();
             receiver.receive();
         } catch (JMSException e) {
             System.out.println("JMS Exception!");
@@ -41,7 +36,6 @@ public class ScheduleBean implements Serializable {
         } finally {
             receiver.closeConnection();
         }
-
     }
 }
 
