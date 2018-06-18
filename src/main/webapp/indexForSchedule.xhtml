@@ -25,12 +25,18 @@
     <ui:define name="content">
 
 
-
         <h2>Schedules</h2>
         <h:panelGroup rendered="#{empty scheduleList}">
-            <em>No registered members.</em>
+            <em>No data! Check the connection</em>
         </h:panelGroup>
-        <h:dataTable var="_schedule" value="#{scheduleList}" rendered="#{not empty scheduleList}" styleClass="simpletablestyle">
+        <h:form>
+            <p:poll interval="3" listener="#{scheduleBean.checkQueue}" update="ttt" />
+        </h:form>
+        <h:dataTable id="ttt" var="_schedule" value="#{scheduleList}" rendered="#{not empty scheduleList}"
+                     styleClass="simpletablestyle">
+
+
+
             <h:column>
                 <f:facet name="header">Train №</f:facet>
                 #{_schedule.trainNumber}
@@ -49,8 +55,6 @@
             </h:column>
         </h:dataTable>
 
-        <h:form>
-            <p:poll interval="3" listener="#{scheduleBean.checkQueue}" />
-        </h:form>
+
     </ui:define>
 </ui:composition>

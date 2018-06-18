@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Table(name = "Schedule"/*, uniqueConstraints = @UniqueConstraint(columnNames = "id")*/)
+@Table(name = "Schedule")
 public class Schedule {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
