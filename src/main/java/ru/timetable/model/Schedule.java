@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Table(name = "Shcedule", uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+@Table(name = "Schedule"/*, uniqueConstraints = @UniqueConstraint(columnNames = "id")*/)
 public class Schedule {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     @NotNull

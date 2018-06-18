@@ -29,7 +29,7 @@ public class ScheduleRepository {
         // using Hibernate Session and Criteria Query via Hibernate Native API
         Session session = (Session) em.getDelegate();
         Criteria cb = session.createCriteria(Schedule.class);
-//        Criteria cb = session.createQuery("FROM Shcedule sch") //todo попробуй селсть запрос
+//        Criteria cb = session.createQuery("FROM Schedule sch") //todo попробуй селсть запрос
         cb.addOrder(Order.asc("arrivalTime"));
         return (List<Schedule>) cb.list();
         // return members;

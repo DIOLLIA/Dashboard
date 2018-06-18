@@ -1,86 +1,3 @@
-/*
-package com.tsystems.jms;
-
-import lombok.Getter;
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.jms.*;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import java.util.Hashtable;
-
-*/
-/**
- * Created by bugav on 22.11.2017.
- *//*
-
-@Singleton
-@Startup
-@Getter
-public class NotifyConsumer {
-
-    private ConnectionFactory connectionFactory;
-    private Connection connection;
-
-    @PostConstruct
-    public void init() {
-        connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
-    }
-
-    */
-/**
-     * creates connection to active mq
-     *//*
-
-    public void createConnection() throws JMSException {
-        connection = connectionFactory.createConnection();
-        connection.start();
-    }
-
-    */
-/**
-     * recieves jms message
-     *//*
-
-    public void receive() {
-
-        Session session = null;
-
-
-
-
-
-        try {
-
-            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-            String subject = "Bugaved";
-            Destination destination = session.createQueue(subject);
-
-            MessageConsumer consumer = session.createConsumer(destination);
-
-            Message message = consumer.receive();
-
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-
-    }
-    */
-/**
-     * close connection to active mq
-     *//*
-
-    public void closeConnection() throws JMSException {
-        connection.close();
-    }
-
-}
-*/
 
 package ru.timetable.jms;
 
@@ -88,7 +5,10 @@ import lombok.Getter;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import ru.timetable.service.ScheduleRegistration;
+
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.jms.*;
@@ -103,9 +23,13 @@ import java.util.Hashtable;
 @Getter
 public class NotifyConsumer {
 
+    @EJB
+    ScheduleRegistration scheduleRegistration;
+
     private QueueConnectionFactory connectionFactory;
     private QueueConnection connection;
     private Queue queue;
+
     @PostConstruct
     public void init() {
 
@@ -125,14 +49,20 @@ public class NotifyConsumer {
         connection.start();
     }
 
-    public void receive()throws NamingException {
-
+    public void receive() throws NamingException {
+    ConsumerMessageListener cms = new ConsumerMessageListener("test");
         try {
 
             QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
 
             QueueReceiver receiver = session.createReceiver(queue);
-            receiver.setMessageListener(new ConsumerMessageListener("Table"));
+
+            receiver.setMessageListener(cms);
+            if (cms.getNewSchedule()!=null){
+                scheduleRegistration.addNewSchedule(cms.getNewSchedule());
+                cms.setNewSchedule(null);
+            }
+
         } catch (JMSException e) {
             e.printStackTrace();
         }
@@ -141,6 +71,5 @@ public class NotifyConsumer {
     public void closeConnection() throws JMSException {
         connection.close();
     }
-
 }
 

@@ -24,66 +24,33 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
 
-        <h:form id="reg">
-            <h2>Member Registration</h2>
-            <p>Demonstrates quickstart application for Hibernate using JBoss EAP.</p>
-            <h:panelGrid columns="3" columnClasses="titleCell">
-                <h:outputLabel for="id" value="Member Id (Enter unique number):"/>
-                <h:inputText id="id" value="#{newSchedule.trainNumber}"/>
-                <h:message for="id" errorClass="invalid"/>
 
-                <h:outputLabel for="name" value="Name:"/>
-                <h:inputText id="name" value="#{newSchedule.departureTime}"/>
-                <h:message for="name" errorClass="invalid"/>
 
-                <h:outputLabel for="email" value="Email:"/>
-                <h:inputText id="email" value="#{newSchedule.station}"/>
-                <h:message for="email" errorClass="invalid"/>
+        <h2>Schedules</h2>
+        <h:panelGroup rendered="#{empty scheduleList}">
+            <em>No registered members.</em>
+        </h:panelGroup>
+        <h:dataTable var="_schedule" value="#{scheduleList}" rendered="#{not empty scheduleList}" styleClass="simpletablestyle">
+            <h:column>
+                <f:facet name="header">Train №</f:facet>
+                #{_schedule.trainNumber}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Arr time</f:facet>
+                #{_schedule.arrivalTime}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Station</f:facet>
+                #{_schedule.station}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dep time</f:facet>
+                #{_schedule.departureTime}
+            </h:column>
+        </h:dataTable>
 
-                <h:outputLabel for="phoneNumber" value="Phone #:"/>
-                <h:inputText id="phoneNumber" value="#{newSchedule.arrivalTime}"/>
-                <h:message for="phoneNumber" errorClass="invalid"/>
-
-            </h:panelGrid>
-
-            <p>
-                <h:panelGrid columns="2">
-                    <h:commandButton id="register" action="#{memberController.register}" value="Register"
-                                     styleClass="register"/>
-                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
-                                globalOnly="true"/>
-                </h:panelGrid>
-            </p>
-        </h:form>
         <h:form>
             <p:poll interval="3" listener="#{scheduleBean.checkQueue}" />
         </h:form>
-
-        <h2>Members</h2>
-        <h:panelGroup rendered="#{empty members}">
-            <em>No registered members.</em>
-        </h:panelGroup>
-        <h:dataTable var="_member" value="#{members}" rendered="#{not empty members}" styleClass="simpletablestyle">
-            <h:column>
-                <f:facet name="header">Id</f:facet>
-                #{_member.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{_member.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                #{_member.email}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Phone #</f:facet>
-                #{_member.phoneNumber}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Address #</f:facet>
-                #{_member.address}
-            </h:column>
-        </h:dataTable>
     </ui:define>
 </ui:composition>
