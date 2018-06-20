@@ -4,7 +4,6 @@ package ru.timetable.jms;
 import lombok.Getter;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-
 import ru.timetable.service.ScheduleRegistration;
 
 import javax.annotation.PostConstruct;
@@ -50,7 +49,7 @@ public class NotifyConsumer {
     }
 
     public void receive() throws NamingException {
-    ConsumerMessageListener cms = new ConsumerMessageListener("test");
+        ConsumerMessageListener cms = new ConsumerMessageListener("test");
         try {
 
             QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
@@ -58,10 +57,16 @@ public class NotifyConsumer {
             QueueReceiver receiver = session.createReceiver(queue);
 
             receiver.setMessageListener(cms);
-            if (cms.getNewSchedule()!=null){
-                scheduleRegistration.addNewSchedule(cms.getNewSchedule());
-                cms.setNewSchedule(null);
+
+            if (cms.getNewSchedule() != null) {
+                if (scheduleRegistration.checkTable(cms.getNewSchedule()).isEmpty()) {
+                    scheduleRegistration.addNewSchedule(cms.getNewSchedule());
+                }
+                else {
+                    cms.setNewSchedule(null);
+                }
             }
+
 
         } catch (JMSException e) {
             e.printStackTrace();

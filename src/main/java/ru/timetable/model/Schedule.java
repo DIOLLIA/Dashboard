@@ -8,8 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(name = "Schedule")
 public class Schedule {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull

@@ -7,6 +7,9 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import java.util.List;
 import java.util.logging.Logger;
 
 @Stateless
@@ -25,5 +28,13 @@ public class ScheduleRegistration {
         Session session = (Session) em.getDelegate();
         session.persist(schedule);
         scheduleEvent.fire(schedule);
+    }
+    public List<Schedule> checkTable(Schedule schedule){
+        Query query=em.createQuery("FROM Schedule sch WHERE sch.trainNumber =:trainNumber AND sch.dailyRouteId =:dailyRouteId AND sch.station =:station");
+        query.setParameter("trainNumber", schedule.getTrainNumber());
+        query.setParameter("dailyRouteId",schedule.getDailyRouteId());
+        query.setParameter("station",schedule.getStation());
+
+        return query.getResultList();
     }
 }

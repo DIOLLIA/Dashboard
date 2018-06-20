@@ -27,13 +27,15 @@ public class SchceduleProducer {
 
     /**
      * Method view for changes on list and responce to jsf with actual information from DB
+     *
      * @param schedule
      */
     public void onScheduleChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Schedule schedule) {
         retrieveAllScheduleBy();
     }
+
     @PostConstruct
-    public void   retrieveAllScheduleBy() {
+    public void retrieveAllScheduleBy() {
         scheduleList = scheduleRepository.findAllOrderedByName();
     }
 }
