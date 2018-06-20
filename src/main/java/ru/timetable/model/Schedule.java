@@ -3,11 +3,12 @@ package ru.timetable.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
 @XmlRootElement
 @Table(name = "Schedule")
-public class Schedule {
+public class Schedule implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,9 @@ public class Schedule {
 
     @NotNull
     private int dailyRouteId;
+
+    @NotNull
+    private int orderNumber;
 
     public int getId() {
         return id;
@@ -74,5 +78,13 @@ public class Schedule {
 
     public void setDailyRouteId(int dailyRouteId) {
         this.dailyRouteId = dailyRouteId;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

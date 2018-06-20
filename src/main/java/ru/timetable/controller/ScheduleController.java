@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 @Model
 public class ScheduleController {
@@ -20,6 +21,7 @@ public class ScheduleController {
     private ScheduleRegistration scheduleRegistration;
 
     private Schedule newSchedule;
+    private List<Schedule> scheduleList;
 
     @Produces
     @Named
@@ -29,7 +31,8 @@ public class ScheduleController {
 
     public void add() {
         try {
-            scheduleRegistration.addNewSchedule(newSchedule);
+//            scheduleRegistration.addNewSchedule(scheduleList);
+            scheduleRegistration.addNewScheduleItem(newSchedule);
             facesContext.addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Updated!", "Successful!"));
             addNewSchedule();

@@ -4,6 +4,7 @@ package ru.timetable.jms;
 import lombok.Getter;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import ru.timetable.model.Schedule;
 import ru.timetable.service.ScheduleRegistration;
 
 import javax.annotation.PostConstruct;
@@ -58,14 +59,25 @@ public class NotifyConsumer {
 
             receiver.setMessageListener(cms);
 
-            if (cms.getNewSchedule() != null) {
+            if (cms.getScheduleList() != null) {
+//                if (scheduleRegistration.checkTable(cms.getNewSchedule()).isEmpty()) {
+//                scheduleRegistration.addNewSchedule(cms.getScheduleList());
+                for (Schedule item : cms.getScheduleList()) {
+                scheduleRegistration.addNewScheduleItem(item);
+                }
+//
+                cms.setScheduleList(null);
+
+            }
+
+    /*        if (cms.getNewSchedule() != null) {
                 if (scheduleRegistration.checkTable(cms.getNewSchedule()).isEmpty()) {
                     scheduleRegistration.addNewSchedule(cms.getNewSchedule());
                 }
                 else {
                     cms.setNewSchedule(null);
                 }
-            }
+            }*/
 
 
         } catch (JMSException e) {
