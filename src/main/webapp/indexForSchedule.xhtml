@@ -7,14 +7,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
-
+        <div class="dualbrand">
+            <img src="resources/gfx/ologo.png" alt=""/>
+        </div>
         <h2>Schedules</h2>
+
         <h:panelGroup rendered="#{empty scheduleList}">
             <em>No data! Check the connection</em>
         </h:panelGroup>
-        <h:form>
-            <p:poll interval="3" listener="#{scheduleBean.checkQueue}" update="table" />
-        </h:form>
+
         <h:dataTable id="table" var="_schedule" value="#{scheduleList}" rendered="#{not empty scheduleList}"
                      styleClass="simpletablestyle">
             <h:column>

@@ -22,7 +22,7 @@ public class ScheduleRegistration {
     @Inject
     private Event<Schedule> scheduleEvent;
 
-    public void addNewSchedule(List<Schedule> schedule) {
+/*    public void addNewSchedule(List<Schedule> schedule) {
 //        log.info("Registering new schedule with station: " + schedule.getStation() + ", train number:  " + schedule.getTrainNumber());
         for (Schedule item : schedule) {
             Session session = (Session) em.getDelegate();
@@ -30,7 +30,12 @@ public class ScheduleRegistration {
             scheduleEvent.fire(item);
         }
 
-    }
+    }*/
+
+public List<Schedule> getAll(){
+    Query query = em.createQuery("FROM Schedule");
+    return  (List<Schedule>)query.getResultList();
+}
     public void addNewScheduleItem(Schedule schedule) {
         log.info("Registering new schedule with station: " + schedule.getStation() + ", train number:  " + schedule.getTrainNumber());
             Session session = (Session) em.getDelegate();

@@ -36,6 +36,6 @@ public class SchceduleProducer {
 
     @PostConstruct
     public void retrieveAllScheduleBy() {
-        scheduleList = scheduleRepository.findAllOrderedByName();
+       scheduleList = scheduleRepository.findAllOrderedByName();
     }
 }
