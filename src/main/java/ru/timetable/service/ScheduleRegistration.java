@@ -22,15 +22,6 @@ public class ScheduleRegistration {
     @Inject
     private Event<Schedule> scheduleEvent;
 
-/*    public void addNewSchedule(List<Schedule> schedule) {
-//        log.info("Registering new schedule with station: " + schedule.getStation() + ", train number:  " + schedule.getTrainNumber());
-        for (Schedule item : schedule) {
-            Session session = (Session) em.getDelegate();
-            session.persist(item);
-            scheduleEvent.fire(item);
-        }
-
-    }*/
 
 public List<Schedule> getAll(){
     Query query = em.createQuery("FROM Schedule");
