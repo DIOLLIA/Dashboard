@@ -45,20 +45,19 @@ body {
 }
 #aside {
   font-size: 0.9em;
-  width: 275px;
-  float: left;
-  margin: 20px 0px;
+  width: 150px;
+  float: right;
   border: 1px solid #D5D5D5;
   background: #F1F1F1;
   background-image: url(#{request.contextPath}/resources/gfx/asidebkg.png);
   background-repeat: repeat-x;
-  padding: 20px;
 }
 
 #aside ul {
   padding-left: 30px;
 }
 .dualbrand {
+  width: 10%;
   float: right;
   padding-right: 10px;
 }

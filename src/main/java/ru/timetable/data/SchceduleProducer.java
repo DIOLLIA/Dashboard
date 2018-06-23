@@ -25,7 +25,6 @@ public class SchceduleProducer {
         return scheduleList;
     }
 
-
     /**
      * Method view for changes on list and responce to jsf with actual information from DB
      *
@@ -38,8 +37,6 @@ public class SchceduleProducer {
     @PostConstruct
     public void retrieveAllScheduleBy() {
         scheduleList = scheduleRepository.findAllOrderedByName();
-
-
     }
 
     public void retrieveScheduleByStation(String station) {

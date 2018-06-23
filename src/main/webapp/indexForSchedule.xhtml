@@ -18,13 +18,17 @@
                 <h:inputText value="#{scheduleBean.station}" />
 
                 <h:outputText value="Action: "/>
-                <h:commandLink value="Create" action="#{scheduleBean.requestStations}"/>
+                <h:commandLink value="Show" action="#{scheduleBean.requestStations}"/>
             </h:panelGrid>
         </h:form>
 
         <h:panelGroup rendered="#{empty scheduleList}">
             <em>No data! Check the connection</em>
         </h:panelGroup>
+
+        <h:form>
+            <p:poll interval="3" listener="#{scheduleBean.checkQueue}" update="table" />
+        </h:form>
 
         <h:dataTable id="table" var="_schedule" value="#{scheduleList}" rendered="#{not empty scheduleList}"
                      styleClass="simpletablestyle">
