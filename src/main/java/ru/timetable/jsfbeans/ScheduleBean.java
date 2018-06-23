@@ -3,15 +3,17 @@ package ru.timetable.jsfbeans;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.timetable.data.SchceduleProducer;
+import ru.timetable.service.ScheduleService;
 import ru.timetable.jms.NotifyConsumer;
+import ru.timetable.model.Schedule;
 
-import javax.ejb.EJB;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.jms.JMSException;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Bean for managing schedule by rest service and connecting to message broker
@@ -22,20 +24,22 @@ import java.io.Serializable;
 @Setter
 public class ScheduleBean implements Serializable {
 
-    @EJB
+    @Inject
     private NotifyConsumer receiver;
 
     @Inject
-    private SchceduleProducer schceduleProducer;
+    private ScheduleService scheduleService;
 
     private String station;
+    private List<Schedule> scheduleList;
 
-    public void setStation(String station) {
-        this.station = station;
+    @PostConstruct
+    void init() {
+        scheduleList = scheduleService.retrieveAllScheduleBy();
     }
 
     public void requestStations() {
-        schceduleProducer.retrieveScheduleByStation(station);
+        scheduleList = scheduleService.retrieveScheduleByStation(station);
     }
 
     public void checkQueue() throws Exception {

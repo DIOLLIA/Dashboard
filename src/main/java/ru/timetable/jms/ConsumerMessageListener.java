@@ -2,28 +2,24 @@ package ru.timetable.jms;
 
 
 import ru.timetable.model.Schedule;
+import ru.timetable.service.ScheduleService;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ConsumerMessageListener implements MessageListener {
-    private String consumerName;
-    static List<Schedule> scheduleList = new ArrayList<>();
+    private ScheduleService scheduleService;
 
-    public ConsumerMessageListener(String consumerName) {
-        this.consumerName = consumerName;
+    public ConsumerMessageListener(ScheduleService scheduleService) {
+        this.scheduleService = scheduleService;
     }
 
     public void onMessage(Message message) {
-        if (scheduleList==null){
-            scheduleList=new ArrayList<>();
-        }
-            MapMessage mapMessage = (MapMessage) message;
+
+        MapMessage mapMessage = (MapMessage) message;
         try {
             Schedule newSchedule = new Schedule();
             newSchedule.setStation(mapMessage.getString("station"));
@@ -32,26 +28,9 @@ public class ConsumerMessageListener implements MessageListener {
             newSchedule.setTrainNumber(mapMessage.getInt("train"));
             newSchedule.setDailyRouteId(mapMessage.getInt("dailyId"));
             newSchedule.setOrderNumber(mapMessage.getInt("orderNumber"));
-            scheduleList.add(newSchedule);
+            scheduleService.save(newSchedule);
         } catch (JMSException e) {
             e.printStackTrace();
         }
-    }
-
-/*    public Schedule getNewSchedule() {
-        return newSchedule;
-    }
-
-    public void setNewSchedule(Schedule newSchedule) {
-        this.newSchedule = newSchedule;
-    }*/
-
-
-    public List<Schedule> getScheduleList() {
-        return scheduleList;
-    }
-
-    public void setScheduleList(List<Schedule> scheduleList) {
-        ConsumerMessageListener.scheduleList = scheduleList;
     }
 }

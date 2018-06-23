@@ -4,13 +4,14 @@ package ru.timetable.jms;
 import lombok.Getter;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import ru.timetable.repository.ScheduleRepository;
 import ru.timetable.model.Schedule;
-import ru.timetable.service.ScheduleRegistration;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -22,9 +23,8 @@ import java.util.Hashtable;
 @Startup
 @Getter
 public class NotifyConsumer {
-
-    @EJB
-    ScheduleRegistration scheduleRegistration;
+    @Inject
+    private ScheduleRepository scheduleRepository;
 
     private QueueConnectionFactory connectionFactory;
     private QueueConnection connection;
@@ -50,39 +50,7 @@ public class NotifyConsumer {
     }
 
     public void receive() throws NamingException {
-        ConsumerMessageListener cms = new ConsumerMessageListener("test");
-        try {
 
-            QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-
-            QueueReceiver receiver = session.createReceiver(queue);
-
-            receiver.setMessageListener(cms);
-
-            if (cms.getScheduleList() != null) {
-//                if (scheduleRegistration.checkTable(cms.getNewSchedule()).isEmpty()) {
-//                scheduleRegistration.addNewSchedule(cms.getScheduleList());
-                for (Schedule item : cms.getScheduleList()) {
-                scheduleRegistration.addNewScheduleItem(item);
-                }
-//
-                cms.setScheduleList(null);
-
-            }
-
-    /*        if (cms.getNewSchedule() != null) {
-                if (scheduleRegistration.checkTable(cms.getNewSchedule()).isEmpty()) {
-                    scheduleRegistration.addNewSchedule(cms.getNewSchedule());
-                }
-                else {
-                    cms.setNewSchedule(null);
-                }
-            }*/
-
-
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
     }
 
     public void closeConnection() throws JMSException {

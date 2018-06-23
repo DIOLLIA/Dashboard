@@ -22,7 +22,7 @@
             </h:panelGrid>
         </h:form>
 
-        <h:panelGroup rendered="#{empty scheduleList}">
+        <h:panelGroup rendered="#{empty scheduleBean.scheduleList}">
             <em>No data! Check the connection</em>
         </h:panelGroup>
 
@@ -30,7 +30,7 @@
             <p:poll interval="3" listener="#{scheduleBean.checkQueue}" update="table" />
         </h:form>
 
-        <h:dataTable id="table" var="_schedule" value="#{scheduleList}" rendered="#{not empty scheduleList}"
+        <h:dataTable id="table" var="_schedule" value="#{scheduleBean.scheduleList}" rendered="#{not empty scheduleBean.scheduleList}"
                      styleClass="simpletablestyle">
             <h:column>
                 <f:facet name="header">Train №</f:facet>
