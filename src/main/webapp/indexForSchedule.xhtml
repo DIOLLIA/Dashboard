@@ -15,20 +15,19 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputText value="Station: "/>
-                <h:inputText value="#{scheduleBean.station}" />
-
+                <h:inputText id="stationName" value="#{scheduleBean.station}"/>
                 <h:outputText value="Action: "/>
                 <h:commandLink value="Show" action="#{scheduleBean.requestStations}"/>
             </h:panelGrid>
+            <p:poll interval="10" listener="#{scheduleBean.requestStations}" update="table"/>
         </h:form>
 
         <h:panelGroup rendered="#{empty scheduleBean.scheduleList}">
             <em>No data! Check the connection</em>
         </h:panelGroup>
 
-
-
-        <h:dataTable id="table" var="_schedule" value="#{scheduleBean.scheduleList}" rendered="#{not empty scheduleBean.scheduleList}"
+        <h:dataTable id="table" var="_schedule" value="#{scheduleBean.scheduleList}"
+                     rendered="#{not empty scheduleBean.scheduleList}"
                      styleClass="simpletablestyle">
             <h:column>
                 <f:facet name="header">Train №</f:facet>
