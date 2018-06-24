@@ -27,7 +27,7 @@ public class ScheduleRepository {
 
     public List<Schedule> findByStationName(String station) {
         TypedQuery<Schedule> query = em.createQuery("SELECT sch FROM Schedule sch WHERE sch.station =:station ORDER BY sch.arrivalTime", Schedule.class);
-        query.setParameter("station",station);
+        query.setParameter("station", station);
         return query.getResultList();
     }
 
@@ -41,6 +41,11 @@ public class ScheduleRepository {
         query.setParameter("dailyRouteId", schedule.getDailyRouteId());
         query.setParameter("station", schedule.getStation());
 
+        return query.getResultList();
+    }
+
+    public List<String> getStations() {
+        TypedQuery<String> query = em.createQuery("SELECT DISTINCT sch.station FROM Schedule sch", String.class);
         return query.getResultList();
     }
 }

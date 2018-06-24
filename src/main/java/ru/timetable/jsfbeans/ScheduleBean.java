@@ -24,10 +24,12 @@ public class ScheduleBean implements Serializable {
 
     private String station;
     private List<Schedule> scheduleList;
+    private List<String> stationList;
 
     @PostConstruct
     void init() {
         scheduleList = scheduleService.retrieveAllScheduleBy();
+        stationList = scheduleService.getStations();
     }
 
     public void requestStations() {

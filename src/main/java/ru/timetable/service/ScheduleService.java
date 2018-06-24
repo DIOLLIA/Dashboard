@@ -26,4 +26,8 @@ public class ScheduleService {
     public void save(Schedule schedule) {
         scheduleRepository.addNewScheduleItem(schedule);
     }
+
+    public List<String> getStations() {
+        return scheduleRepository.getStations();
+    }
 }

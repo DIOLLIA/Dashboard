@@ -14,8 +14,11 @@
         <h2>Schedules</h2>
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputText value="Station: "/>
-                <h:inputText id="stationName" value="#{scheduleBean.station}"/>
+                <p:outputLabel for="station" value="Station: " />
+                <p:selectOneMenu id="station" value="#{scheduleBean.station}">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{scheduleBean.stationList}" />
+                </p:selectOneMenu>
                 <h:outputText value="Action: "/>
                 <h:commandLink value="Show" action="#{scheduleBean.requestStations}"/>
             </h:panelGrid>
