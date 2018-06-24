@@ -3,11 +3,13 @@ package ru.timetable.service;
 import ru.timetable.model.Schedule;
 import ru.timetable.repository.ScheduleRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
 
-@ApplicationScoped
+@Stateless
+@LocalBean
 public class ScheduleService {
 
     @Inject

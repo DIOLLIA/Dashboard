@@ -26,9 +26,7 @@
             <em>No data! Check the connection</em>
         </h:panelGroup>
 
-        <h:form>
-            <p:poll interval="3" listener="#{scheduleBean.checkQueue}" update="table" />
-        </h:form>
+
 
         <h:dataTable id="table" var="_schedule" value="#{scheduleBean.scheduleList}" rendered="#{not empty scheduleBean.scheduleList}"
                      styleClass="simpletablestyle">

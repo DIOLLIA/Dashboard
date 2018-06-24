@@ -4,18 +4,20 @@ package ru.timetable.jms;
 import ru.timetable.model.Schedule;
 import ru.timetable.service.ScheduleService;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-
+@Stateless
+@LocalBean
 public class ConsumerMessageListener implements MessageListener {
-    private ScheduleService scheduleService;
 
-    public ConsumerMessageListener(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
-    }
+    @Inject
+    private ScheduleService scheduleService;
 
     public void onMessage(Message message) {
 

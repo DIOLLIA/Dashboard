@@ -2,16 +2,17 @@ package ru.timetable.repository;
 
 import ru.timetable.model.Schedule;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@ApplicationScoped
+@Stateless
+@LocalBean
 public class ScheduleRepository {
-    @Inject
+    @PersistenceContext
     private EntityManager em;
 
     /**
