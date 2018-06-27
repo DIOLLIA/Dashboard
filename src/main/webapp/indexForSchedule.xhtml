@@ -19,15 +19,12 @@
                     <f:selectItem itemLabel="Select One" itemValue="" />
                     <f:selectItems value="#{scheduleBean.stationList}" />
                 </p:selectOneMenu>
-                <h:outputText value="Action: "/>
-                <h:commandLink value="Show" action="#{scheduleBean.requestStations}"/>
+
             </h:panelGrid>
-            <p:poll interval="10" listener="#{scheduleBean.requestStations}" update="table"/>
+            <p:poll interval="5" listener="#{scheduleBean.requestStations}" update="table"/>
+            <p:poll interval="10" listener="#{scheduleBean.requestStations}" update="station"/>
         </h:form>
 
-        <h:panelGroup rendered="#{empty scheduleBean.scheduleList}">
-            <em>No data! Check the connection</em>
-        </h:panelGroup>
 
         <h:dataTable id="table" var="_schedule" value="#{scheduleBean.scheduleList}"
                      rendered="#{not empty scheduleBean.scheduleList}"
@@ -49,5 +46,6 @@
                 #{_schedule.departureTime}
             </h:column>
         </h:dataTable>
+
     </ui:define>
 </ui:composition>

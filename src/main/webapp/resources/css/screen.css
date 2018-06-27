@@ -46,7 +46,7 @@ body {
 #aside {
   font-size: 0.9em;
   width: 150px;
-  float: right;
+  float: right; float: right;
   border: 1px solid #D5D5D5;
   background: #F1F1F1;
   background-image: url(#{request.contextPath}/resources/gfx/asidebkg.png);
@@ -58,7 +58,6 @@ body {
 }
 .dualbrand {
   width: 10%;
-  float: right;
   padding-right: 10px;
 }
 #footer {
